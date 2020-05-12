@@ -1,0 +1,37 @@
+footer {
+  height: 150px;
+  bottom: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  min-height: calc(100vh - 170px);
+}
+
+button {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+#header {
+  color: white
+}
+
+#header:hover {
+  filter: brightness(85%);
+}
+
+.card {
+  width: 100%;
+}
+
+.card-text {
+  border-bottom: 1px solid lightgrey;
+}

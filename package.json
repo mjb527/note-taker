@@ -1,0 +1,15 @@
+{
+  "name": "note-taker",
+  "version": "1.0.0",
+  "description": "An app to allow people to take notes",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js",
+    "test": "npm run test"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^26.0.1",
+    "jquery": "^3.5.1"
+  }
+}

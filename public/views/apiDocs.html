@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Note Taker</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <link rel="icon" type="image/png" href="../static/note-icon.png">
+
+  </head>
+  <body>
+    <div id="header" class="row bg-success">
+      <div class="col-12 py-5">
+        <a href="/">
+          <div class="text-center">
+            <h2 class="text-white">Enter a new note!</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+
+    <div class="container-fluid w-75 my-5 bg-light p-4 rounded border">
+
+      <div class="row mb-4">
+          <a href="/notes" class="col-12 mb-2"><button type="button" class="btn-success btn-block rounded" name="button">Check Notes</button></a>
+          <a href="/api/docs" class="col-12"><button type="button" class="btn-success btn-block rounded" name="button">API Docs</button></a>
+
+      </div>
+
+      <div class="row mx-2">
+        <h4 class="d-block">GET</h4>
+      </div>
+
+      <div class="row mx-4">
+        <div class="mb-4">
+          <h5>Endpoint: /api/notes</h5>
+          <p>This will return all notes, including:</p>
+          <ul>
+            <li>Their ID</li>
+            <li>Their Name</li>
+            <li>Their time & date</li>
+            <li>Their description</li>
+            <li>Their location</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mx-4">
+        <div class="mb-4">
+          <h5>Endpoint: /api/notes/:id</h5>
+          <span class="d-block">Returns all notes with the ID or Name mathcing the parameter `name`</span>
+          <span>This will return data all matches, including:</span>
+          <ul>
+            <li>ID</li>
+            <li>Name</li>
+            <li>Time & date</li>
+            <li>Description</li>
+            <li>Location</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mx-2">
+        <h4 class="d-block">POST</h4>
+      </div>
+
+      <div class="row mx-4">
+        <div class="mb-4">
+          <h5>Endpoint: /api/notes/</h5>
+          <span class="d-block">Create a new note by passing along the following parameters:</span>
+          <ul>
+            <li>name (string): the required name displayed to you when you view the list of notes</li>
+            <li>date (string): the optional date for the note in case it is an event, formatted MM/DD/YYYY</li>
+            <li>time (string): the optional time for the note in case it is an event, formatted HH:MM AM/PM</li>
+            <li>description (string): the optional long description if it is too long to be appropriate for the title</li>
+            <li>location (string): the optional location of an event</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mx-4">
+        <div class="mb-4">
+          <h5>Endpoint: /api/notes/delete/:id</h5>
+          <span class="d-block">Delete a single note by passing its ID. Returns an array of the remaining objects.</span>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer bg-success"></footer>
+
+
+  </body>
+</html>

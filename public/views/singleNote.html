@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Note</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <link rel="icon" type="image/png" href="../static/note-icon.png">
+
+
+  </head>
+  <body>
+    <div id="header" class="row bg-success">
+      <div class="col-12 py-5">
+        <a href="/">
+          <div class="text-center">
+            <h2 class="text-white">Enter a new note!</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="container-fluid w-75 mt-5 mb-2 p-4 bg-light rounded border">
+
+      <div class="row mb-4">
+          <a href="/notes" class="col-12 mb-2"><button type="button" class="btn-success btn-block rounded" name="button">Check Notes</button></a>
+          <a href="/api/docs" class="col-12"><button type="button" class="btn-success btn-block rounded" name="button">API Docs</button></a>
+
+      </div>
+
+      <div class="row"><div class="card mx-4">
+        <h5 class="card-header bg-success text-white">note</h5>
+        <p class="card-text bg-gradient-success px-4 py-4">description</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Date: date</li>
+          <li class="list-group-item">Time: time</li>
+          <li class="list-group-item">Location: location</li>
+        </ul>
+        <div class="card-body text-right">
+          <button type="button" class="btn btn-danger delete">Delete Note</button>
+        </div>
+
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer bg-success"></footer>
+
+  </body>
+
+  <!-- bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</html>

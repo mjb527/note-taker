@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Note Taker</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- tempus dominus  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css">
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+
+    <link rel="icon" type="image/png" href="../static/note-icon.png">
+
+  </head>
+  <body>
+    <div id="header" class="row bg-success">
+      <div class="col-12 py-5">
+        <a href="/">
+          <div class="text-center">
+            <h2 class="text-white">Enter a new note!</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="container-fluid w-75 my-5 bg-light p-4 rounded border">
+
+      <div class="row mb-4">
+          <a href="/notes" class="col-12 mb-2"><button type="button" class="btn-success btn-block rounded" name="button">Check Notes</button></a>
+          <a href="/api/docs" class="col-12"><button type="button" class="btn-success btn-block rounded" name="button">API Docs</button></a>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+
+          <form>
+            <div class="form-group">
+              <label for="noteName">Note Title</label>
+              <input type="text" class="form-control" id="noteName" maxlength="25">
+            </div>
+
+            <div class="form-group">
+              <label for="noteContent">Details</label>
+              <textarea class="form-control" id="noteContent" rows="5"></textarea>
+            </div>
+
+
+            <!-- https://tempusdominus.github.io/bootstrap-4/Usage/ -->
+            <div class="form-group">
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" id="datetime" data-target="#datetimepicker1"/>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" class="form-control" id="location">
+            </div>
+            <button id="submit" type="submit" class="rounded btn-block btn-success">Submit</button>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer navbar bg-success"></footer>
+
+    <script type="text/javascript">
+
+      $(document).ready( function() {
+
+      $(function () {
+          $('#datetimepicker1').datetimepicker();
+      });
+
+      $('#submit').click(function(e) {
+        e.preventDefault();
+
+        const url = '/api/notes';
+
+        const datetime = $('#datetime').val().split(' ');
+        alert($('#datetime').val());
+
+        const data = {};
+        data.name = $('#noteName').val();
+        data.description = $('#noteContent').val();
+        data.location = $('#location').val();
+        data.date = datetime[0];
+        data.time = datetime[1];
+
+        $.post(url, data)
+        .then(function(res) {
+          console.log(res);
+        });
+      });
+    });
+
+    </script>
+
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/08e270e5ef.js" crossorigin="anonymous"></script>
+
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- moment.js -->
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+
+    <!-- tempus dominus -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+  </body>
+</html>
