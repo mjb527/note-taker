@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require("path");
+const util = require('util');
 
 const PORT = process.env.PORT || 7500;
 
@@ -12,15 +13,22 @@ app.use(express.json());
 app.use('/static', express.static(__dirname + '/static'));
 app.use(express.static(__dirname + '/public'));
 
-
-// get the highest id and add 1
 let id = 0;
-fs.readFileSync('db.json', (err, data) => {
-  if(err) throw new Error('FAILED STARTING SERVER');
-  data = JSON.parse(data).notes;
-  if(data.length > 0) id = data[data.length - 1].id;
-});
-console.log(id);
+
+const getID = async () => {
+    let data = await fs.promises.readFile("db.json");
+    data = JSON.parse(data);
+    // console.log(data.notes[data.notes.length - 1].id + 1);
+    if(data.notes.length > 0) return data.notes[data.notes.length - 1].id + 1;
+    else return 0;
+
+}
+
+// const main = async () => {
+//   let id = await getID();
+//   console.log(id);
+// }
+
 
 // ROUTES
 
@@ -32,17 +40,6 @@ app.get('/', (req, res) => {
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, "/public/views/notes.html"));
 });
-
-app.get('/notes/:noteID', (req, res) => {
-  const id = req.param.noteID;
-  // fs.readFile('db.json', (err, data) => {
-  //   res.json(JSON.parse(data).notes.filter( note => {
-  //     note.id === id;
-  //   }));
-  // });
-  res.sendFile(path.join(__dirname, "public/views/singleNote.html"));
-});
-
 
 // api
 app.get('/api/docs', (req, res) => {
@@ -67,10 +64,15 @@ app.get('/api/notes/:id', (req, res) => {
 });
 
 // accept JSON and append it to the db.json file
-app.post('/api/notes', (req, res) => {
-  const newNote = req.body;
+app.post('/api/notes', async (req, res) => {
 
-  newNote.id = parseInt(newNote.id);
+  let id = await getID();
+  console.log(id);
+
+  const newNote = req.body;
+  newNote.id = parseInt(id);
+
+  console.log(newNote);
 
   fs.readFile('db.json', (err, data) => {
     if(err) console.log(err);
@@ -78,33 +80,41 @@ app.post('/api/notes', (req, res) => {
     let myData = JSON.parse(data);
 
     myData.notes.push(newNote);
-    console.log(myData);
+    // console.log(myData);
 
     fs.writeFile('db.json', JSON.stringify(myData), (err, result) => {
       if(err) console.log(err);
     });
-    return res.json(myData);
+    return res.sendFile(path.join(__dirname, "/public/views/index.html"));
+
   });
+
 
 });
 
 app.get('/api/notes/delete/:id', (req, res) => {
-  console.log('hey');
   const id = req.params.id;
-  let arr = [];
+  const newNotes = {"notes": []};
   fs.readFile('db.json', 'utf8', (err, data) => {
     if(err) return res.json(JSON.parse(err));
-    arr.push(JSON.parse(data).notes.filter( note => {
-      return note.id != id;
-    }));
+    let notes = JSON.parse(data).notes;
+    notes.forEach( note => {
+      if(note.id != id) {
+        newNotes.notes.push(note);
+      }
+
+    });
+
+    fs.writeFile('db.json', JSON.stringify(newNotes), (err, data) => {
+      if(err) return res.json(JSON.parse(err));
+      return res.sendFile(path.join(__dirname, "/public/views/notes.html"));
+    });
+
   });
-  fs.writeFile('db.json', JSON.stringify(arr), (err, data) => {
-    if(err) return res.json(JSON.parse(err));
-    return res.json(data);
-  });
+
+
 
 });
-
 
 const server = app.listen(PORT, function () {
    console.log("Example app listening at http://localhost:" + PORT);

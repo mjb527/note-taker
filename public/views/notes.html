@@ -27,13 +27,19 @@
           crossDomain: true
         })
         .then(response => {
-
           $('#notesList').empty();
+
+          if(response.notes.length === 0) {
+            $('#notesList').append('<h2>No notes exist, <a href="/">create a new note now!</a></h2>');
+            return; // end function, rest is useless if we get here
+          }
+
 
           $.each(response.notes, (index, note) => {
             const {id, name, description, time, date, location} = note;
             const card = $('<div>');
             card.addClass('card mx-4 mb-4');
+            card.attr('data-id', id);
             card.append(`<h5 class="card-header bg-success text-white">${name}</h5>`);
 
             if(description !== undefined) card.append(`<p class="card-text bg-gradient-success px-4 py-4">${description}</p>`);
@@ -55,19 +61,26 @@
 
             $('#notesList').append(row);
 
+            $('.delete').click(function(e) {
+              e.preventDefault();
+              const id = $(this).closest('.card')[0].dataset.id;
+              $.ajax({
+                url: '/api/notes/delete/' + id,
+                method: 'GET',
+                crossDomain: true
+              })
+              .then( (res) => {
+                window.location.reload();
+              });
+            });
+
           });
 
         });
 
-
-    //
       }
     );
 
-    $('.delete').on('click', function(e) {
-      e.preventDefault();
-      console.log('made it');
-    });
 
 
 

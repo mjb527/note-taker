@@ -76,7 +76,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="page-footer navbar bg-success"></footer>
+    <footer class="page-footer navbar bg-success">
+      <div>
+        <a href="/api/notes">All Notes JSON</a>
+      </div>
+    </footer>
 
     <script type="text/javascript">
 
@@ -92,7 +96,6 @@
         const url = '/api/notes';
 
         const datetime = $('#datetime').val().split(' ');
-        alert($('#datetime').val());
 
         const data = {};
         data.name = $('#noteName').val();
@@ -103,7 +106,8 @@
 
         $.post(url, data)
         .then(function(res) {
-          console.log(res);
+          // refresh page once data is posted
+          $('.form-group').find("input[type=text], textarea").val("");
         });
       });
     });

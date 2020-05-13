@@ -35,3 +35,11 @@ a:hover {
 .card-text {
   border-bottom: 1px solid lightgrey;
 }
+
+footer div {
+  margin-left: 12%;
+}
+
+footer div a {
+  color: white;
+}
